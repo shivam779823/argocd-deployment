@@ -14,7 +14,15 @@ jobs:
       uses: mikefarah/yq@master
       with:
         cmd: yq eval '.spec.template.spec.containers[0].image = "${{ github.event.client_payload.image }}"' -i k8s/deployment.yaml
-      
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Git Commit and Push
+  # You may pin to the exact commit or the version.
+  # uses: github-actions-x/commit@722d56b8968bf00ced78407bbe2ead81062d8baa
+      uses: github-actions-x/commit@v2.9
       with:
-        commit_message: Apply image name changes
+    # Github Token with commit access
+        github-token: ${{ secrets.GITHUB1_TOKEN }}
+    # Override branch to push to
+    #push-branch: # optional
+    # Specify commit message
+        commit-message: autocommit
+
